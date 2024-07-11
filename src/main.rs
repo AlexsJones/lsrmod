@@ -30,7 +30,9 @@ fn populate(l: &str) -> types::Module {
 #[derive(Parser, Debug)]
 struct Args {
     #[arg(short, long)]
-    json: bool
+    json: bool,
+    #[arg(short,long)]
+    number_of_lines: Option<i32>,
 }
 fn main() {
     let a = Args::parse();
@@ -47,7 +49,23 @@ fn main() {
     let path = Path::new(MODULE_PATH);
     table.set_titles(row!["Name", "Memory(b)", "Instances", "Depends on","State","Memory Offset"]);
     let r = fs::read_to_string(path).unwrap();
-    let mut processed_modules = r.lines().map(|x | populate(&x)).collect::<Vec<types::Module>>();
+    let mut unprocessed_modules = r.lines().map(|x | populate(&x)).collect::<Vec<types::Module>>();
+    let mut processed_modules = vec![];
+    match a.number_of_lines {
+        Some(x) => {
+            let mut y = 0;
+            for modules in unprocessed_modules {
+                if y == x {
+                    break;
+                }
+                processed_modules.push(modules);
+                y = y+1;
+            }
+        }
+        None => {
+            processed_modules  = unprocessed_modules.to_vec();
+        }
+    }
 
     if !a.json {
         for t in processed_modules {

@@ -2,7 +2,7 @@ use std::fmt;
 use std::str::FromStr;
 use serde::Serialize;
 
-#[derive(Default, Debug, Eq, PartialEq,Serialize)]
+#[derive(Default, Debug, Eq, PartialEq,Serialize, Clone)]
 pub enum ModuleState {
     #[default]
     Live,
@@ -31,7 +31,7 @@ impl fmt::Display for ModuleState {
 }
 
 
-#[derive(Default, Debug,Serialize)]
+#[derive(Default, Debug,Serialize,Clone)]
 pub struct Module {
     pub name: String,
     pub memory: String,
