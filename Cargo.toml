@@ -1,0 +1,15 @@
+[package]
+name = "lsrmod"
+version = "0.1.2"
+edition = "2021"
+description = "lsmod written in rust and outputs into std and json"
+license = "MIT"
+license-file = "LICENSE"
+documentation = "https://github.com/AlexsJones/lsrmod.git"
+homepage = "https://github.com/AlexsJones/lsrmod.git"
+repository = "https://github.com/AlexsJones/lsrmod.git"
+[dependencies]
+clap = { version = "4.5.9", features = ["derive"] }
+prettytable-rs = "^0.10"
+serde_json = "1.0.120"
+serde = { version = "1.0.204", features = ["derive"] }
